@@ -1,0 +1,35 @@
+<div class="stars-bg min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden">
+
+  <div class="glow-orb w-96 h-96 bg-indigo-600 top-[-100px] left-[-100px]"></div>
+  <div class="glow-orb w-80 h-80 bg-purple-600 bottom-[-80px] right-[-80px]"></div>
+
+  <div class="relative z-10 text-center mb-12">
+    <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-indigo-600 mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+      </svg>
+    </div>
+    <h1 class="text-5xl font-bold text-white mb-3">Job<span class="text-indigo-400">Link</span></h1>
+    <p class="text-gray-400 text-lg max-w-sm mx-auto">
+      Trouvez des prestataires de confiance près de chez vous
+    </p>
+  </div>
+
+  <div class="relative z-10 w-full max-w-sm space-y-4">
+    <button
+      (click)="goToRegister()"
+      class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-2xl transition-all duration-200 text-lg">
+      Commencer
+    </button>
+    <button
+      (click)="goToLogin()"
+      class="w-full py-4 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-2xl transition-all duration-200 text-lg border border-gray-700">
+      Se connecter
+    </button>
+  </div>
+
+  <p class="relative z-10 text-gray-600 text-sm mt-12">
+    Plombiers · Électriciens · Coiffeurs · Tuteurs
+  </p>
+
+</div>
