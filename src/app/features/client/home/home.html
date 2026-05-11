@@ -1,0 +1,62 @@
+<div class="min-h-screen bg-gray-950">
+
+  <!-- Header -->
+  <div class="bg-gray-900 border-b border-gray-800 px-6 py-4">
+    <div class="flex items-center justify-between max-w-2xl mx-auto">
+      <div>
+        <h1 class="text-xl font-bold text-white">Job<span class="text-indigo-400">Link</span></h1>
+        <p class="text-gray-400 text-sm">Bonjour, {{ user?.name }} 👋</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button (click)="goToMyRequests()"
+          class="text-gray-400 hover:text-white transition-colors text-sm">
+          Mes demandes
+        </button>
+        <button (click)="logout()"
+          class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl text-sm transition-colors">
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-6 py-8">
+
+    <!-- Barre de recherche -->
+    <div class="mb-8">
+      <button (click)="goToSearch()"
+        class="w-full px-4 py-4 bg-gray-800 border border-gray-700 rounded-2xl text-gray-400 text-left flex items-center gap-3 hover:border-indigo-500 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        Rechercher un prestataire...
+      </button>
+    </div>
+
+    <!-- Catégories -->
+    <div class="mb-6">
+      <h2 class="text-white font-semibold text-lg mb-4">Catégories de services</h2>
+
+      <!-- Loading -->
+      <div *ngIf="loading" class="grid grid-cols-2 gap-4">
+        <div *ngFor="let i of [1,2,3,4,5,6]"
+          class="h-24 bg-gray-800 rounded-2xl animate-pulse">
+        </div>
+      </div>
+
+      <!-- Grille catégories -->
+      <div *ngIf="!loading" class="grid grid-cols-2 gap-4">
+  <button *ngFor="let category of categories"
+    (click)="goToSearch(category.id)"
+    [style.background]="getCategoryColor(category.name)"
+    class="rounded-2xl p-5 text-left transition-all duration-200 hover:opacity-90 hover:scale-105">
+    <span class="text-3xl mb-3 block">{{ category.icon }}</span>
+    <h3 class="text-white font-bold text-sm">{{ category.name }}</h3>
+    <p class="text-white/70 text-xs mt-1">{{ category.description }}</p>
+  </button>
+</div>
+    </div>
+
+  </div>
+
+</div>
