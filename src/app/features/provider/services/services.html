@@ -1,1 +1,138 @@
-<p>services works!</p>
+<div class="min-h-screen bg-gray-950">
+
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-indigo-900 to-purple-900 px-6 pt-10 pb-6">
+    <div class="flex items-center justify-between max-w-2xl mx-auto">
+      <div class="flex items-center gap-3">
+        <button (click)="goBack()"
+          class="w-9 h-9 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl flex items-center justify-center text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <div>
+          <h1 class="text-white font-bold text-xl">Mes services</h1>
+          <p class="text-indigo-300 text-xs">{{ services.length }} service(s)</p>
+        </div>
+      </div>
+      <button (click)="openForm()"
+        class="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold rounded-xl text-sm transition-colors">
+        + Ajouter
+      </button>
+    </div>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-6 py-6">
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="space-y-4">
+      <div *ngFor="let i of [1,2,3]" class="h-24 bg-gray-800 rounded-2xl animate-pulse"></div>
+    </div>
+
+    <!-- Vide -->
+    <div *ngIf="!loading && services.length === 0"
+      class="bg-gray-800 border border-dashed border-gray-700 rounded-2xl p-12 text-center">
+      <p class="text-4xl mb-3">🔧</p>
+      <p class="text-white font-semibold">Aucun service</p>
+      <p class="text-gray-500 text-sm mt-1 mb-4">Ajoutez vos services pour apparaître dans les recherches</p>
+      <button (click)="openForm()"
+        class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors text-sm">
+        + Ajouter un service
+      </button>
+    </div>
+
+    <!-- Liste -->
+    <div *ngIf="!loading && services.length > 0" class="space-y-4">
+      <div *ngFor="let service of services"
+        class="bg-gray-800 border border-gray-700 rounded-2xl p-4">
+        <div class="flex items-start justify-between mb-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs px-2 py-0.5 bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 rounded-lg">
+                {{ service.category?.icon }} {{ service.category?.name }}
+              </span>
+            </div>
+            <h3 class="text-white font-bold text-sm">{{ service.title }}</h3>
+            <p *ngIf="service.description" class="text-gray-400 text-xs mt-1">{{ service.description }}</p>
+          </div>
+          <div class="ml-3 text-right flex-shrink-0">
+            <p *ngIf="service.price" class="text-indigo-400 font-bold text-sm">{{ service.price }} FCFA</p>
+            <p *ngIf="!service.price" class="text-gray-500 text-xs">Prix libre</p>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-3">
+          <button (click)="openForm(service)"
+            class="flex-1 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 font-semibold rounded-xl text-xs transition-colors">
+            ✏️ Modifier
+          </button>
+          <button (click)="deleteService(service.id)"
+            class="flex-1 py-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 font-semibold rounded-xl text-xs transition-colors">
+            🗑️ Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal formulaire -->
+  <div *ngIf="showForm"
+    class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-end justify-center">
+    <div class="bg-gray-900 border border-gray-700 rounded-t-3xl w-full max-w-2xl p-6 max-h-screen overflow-y-auto">
+
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-white font-bold text-lg">
+          {{ editingService ? 'Modifier le service' : 'Nouveau service' }}
+        </h2>
+        <button (click)="closeForm()" class="text-gray-400 hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+
+        <div>
+          <label class="block text-gray-400 text-sm mb-2">Catégorie *</label>
+          <select formControlName="category_id"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-indigo-500 transition-colors">
+            <option value="">Choisir une catégorie</option>
+            <option *ngFor="let cat of categories" [value]="cat.id">
+              {{ cat.icon }} {{ cat.name }}
+            </option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-gray-400 text-sm mb-2">Titre du service *</label>
+          <input type="text" formControlName="title"
+            placeholder="Ex: Réparation plomberie urgente"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"/>
+        </div>
+
+        <div>
+          <label class="block text-gray-400 text-sm mb-2">Description <span class="text-gray-600">(optionnel)</span></label>
+          <textarea formControlName="description" rows="3"
+            placeholder="Décrivez votre service..."
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none">
+          </textarea>
+        </div>
+
+        <div>
+          <label class="block text-gray-400 text-sm mb-2">Prix en FCFA <span class="text-gray-600">(optionnel)</span></label>
+          <input type="number" formControlName="price"
+            placeholder="Ex: 15000"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"/>
+        </div>
+
+        <button type="submit" [disabled]="form.invalid"
+          class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold rounded-2xl transition-all text-base">
+          {{ editingService ? '✅ Mettre à jour' : '+ Créer le service' }}
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+</div>
