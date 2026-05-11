@@ -1,1 +1,97 @@
-<p>search works!</p>
+<div class="min-h-screen bg-gray-950">
+
+  <!-- Header -->
+  <div class="bg-gray-900 border-b border-gray-800 px-6 py-4">
+    <div class="flex items-center gap-3 max-w-2xl mx-auto">
+      <button (click)="goBack()" class="text-gray-400 hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <h1 class="text-white font-bold text-lg">Rechercher un prestataire</h1>
+    </div>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-6 py-6">
+
+    <!-- Filtres -->
+    <div class="space-y-3 mb-6">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="search()"
+        placeholder="Nom du prestataire..."
+        class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"/>
+
+      <input
+        type="text"
+        [(ngModel)]="cityTerm"
+        (keyup.enter)="search()"
+        placeholder="Ville..."
+        class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"/>
+
+      <button (click)="search()"
+        class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-2xl transition-all">
+        🔍 Rechercher
+      </button>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="space-y-4">
+      <div *ngFor="let i of [1,2,3]" class="h-24 bg-gray-800 rounded-2xl animate-pulse"></div>
+    </div>
+
+    <!-- Résultats -->
+    <div *ngIf="!loading">
+
+      <p class="text-gray-400 text-sm mb-4">{{ providers.length }} prestataire(s) trouvé(s)</p>
+
+      <div *ngIf="providers.length === 0" class="text-center py-12">
+        <p class="text-4xl mb-4">🔍</p>
+        <p class="text-gray-400">Aucun prestataire trouvé</p>
+        <p class="text-gray-600 text-sm mt-2">Essayez d'autres critères de recherche</p>
+      </div>
+
+      <div class="space-y-4">
+        <button *ngFor="let provider of providers"
+          (click)="goToProvider(provider.id)"
+          class="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-indigo-500 rounded-2xl p-4 text-left transition-all duration-200">
+
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-indigo-600 flex items-center justify-center flex-shrink-0">
+              <span class="text-white font-bold text-xl">{{ provider.name.charAt(0) }}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-white font-semibold truncate">{{ provider.name }}</h3>
+              <p class="text-gray-400 text-sm">{{ provider.city ?? 'Ville non renseignée' }}</p>
+              <div class="flex items-center gap-2 mt-1">
+                <span *ngFor="let star of getStars(provider.provider_profile?.average_rating ?? 0)"
+                  class="text-yellow-400 text-sm">{{ star }}</span>
+                <span class="text-gray-500 text-xs">({{ provider.provider_profile?.reviews_count ?? 0 }} avis)</span>
+              </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </div>
+
+        </button>
+      </div>
+
+      <!-- Pagination -->
+      <div *ngIf="lastPage > 1" class="flex justify-between items-center mt-6">
+        <button (click)="prevPage()" [disabled]="currentPage === 1"
+          class="px-4 py-2 bg-gray-800 hover:bg-gray-700 disabled:opacity-50 text-white rounded-xl transition-colors">
+          ← Précédent
+        </button>
+        <span class="text-gray-400 text-sm">{{ currentPage }} / {{ lastPage }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === lastPage"
+          class="px-4 py-2 bg-gray-800 hover:bg-gray-700 disabled:opacity-50 text-white rounded-xl transition-colors">
+          Suivant →
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
