@@ -1,1 +1,109 @@
-<p>my-requests works!</p>
+<div class="min-h-screen bg-gray-950">
+
+  <!-- Header -->
+  <div class="relative bg-gradient-to-r from-indigo-900 to-purple-900 px-6 pt-12 pb-16">
+    <button (click)="goBack()"
+      class="absolute top-4 left-4 w-10 h-10 bg-black/30 backdrop-blur rounded-full flex items-center justify-center text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <h1 class="text-white font-bold text-2xl">Mes demandes</h1>
+    <p class="text-indigo-300 text-sm mt-1">{{ requests.length }} demande(s) au total</p>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-6 mt-4 pb-8">
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="space-y-4">
+      <div *ngFor="let i of [1,2,3]" class="h-40 bg-gray-800 rounded-2xl animate-pulse"></div>
+    </div>
+
+    <!-- Vide -->
+    <div *ngIf="!loading && requests.length === 0"
+      class="bg-gray-800 border border-gray-700 rounded-2xl p-12 text-center mt-4">
+      <p class="text-5xl mb-4">📋</p>
+      <p class="text-white font-semibold text-lg">Aucune demande</p>
+      <p class="text-gray-400 text-sm mt-2">Vous n'avez pas encore envoyé de demande</p>
+      <button (click)="goBack()"
+        class="mt-6 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors">
+        Trouver un prestataire
+      </button>
+    </div>
+
+    <!-- Liste -->
+    <div *ngIf="!loading && requests.length > 0" class="space-y-4">
+      <div *ngFor="let req of requests"
+        class="bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden shadow-lg">
+
+        <!-- Bande de statut colorée en haut -->
+        <div [class]="'h-1 w-full ' + getStatusBand(req.status)"></div>
+
+        <div class="p-5">
+          <!-- En-tête -->
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1 min-w-0">
+              <h3 class="text-white font-bold text-base">{{ req.title }}</h3>
+              <p class="text-gray-500 text-xs mt-1">🕐 {{ req.created_at | slice:0:10 }}</p>
+            </div>
+            <span [class]="'ml-3 px-3 py-1.5 rounded-full border text-xs font-bold flex-shrink-0 ' + getStatusColor(req.status)">
+              {{ getStatusLabel(req.status) }}
+            </span>
+          </div>
+
+          <!-- Prestataire -->
+          <div class="flex items-center gap-3 bg-gray-900/80 rounded-xl p-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0">
+              <span class="text-white font-bold text-sm">{{ req.provider?.name?.charAt(0) }}</span>
+            </div>
+            <div class="flex-1">
+              <p class="text-white font-semibold text-sm">{{ req.provider?.name }}</p>
+              <p class="text-gray-400 text-xs">📍 {{ req.provider?.city }}</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </div>
+
+          <!-- Détails en grille -->
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div class="bg-gray-900/50 rounded-xl p-3">
+              <p class="text-gray-500 text-xs mb-1">📍 Localisation</p>
+              <p class="text-white text-xs font-medium">{{ req.location }}</p>
+            </div>
+            <div class="bg-gray-900/50 rounded-xl p-3">
+              <p class="text-gray-500 text-xs mb-1">📅 Date souhaitée</p>
+              <p class="text-white text-xs font-medium">{{ req.desired_date ? (req.desired_date | slice:0:10) : 'Non définie' }}</p>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="bg-gray-900/50 rounded-xl p-3 mb-4">
+            <p class="text-gray-500 text-xs mb-1">📝 Description</p>
+            <p class="text-gray-300 text-xs leading-relaxed">{{ req.description }}</p>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex gap-2">
+            <button *ngIf="req.status === 'pending'"
+              (click)="cancelRequest(req.id)"
+              class="flex-1 py-2.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 font-semibold rounded-xl text-sm transition-colors">
+              ✕ Annuler
+            </button>
+            <button *ngIf="req.status === 'completed' && !req.review"
+              (click)="goToReview(req.id)"
+              class="flex-1 py-2.5 bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 font-semibold rounded-xl text-sm transition-colors">
+              ⭐ Laisser un avis
+            </button>
+            <div *ngIf="req.status === 'completed' && req.review"
+              class="flex-1 py-2.5 bg-blue-500/10 border border-blue-500/30 text-blue-400 font-semibold rounded-xl text-sm text-center">
+              ✅ Avis laissé
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
