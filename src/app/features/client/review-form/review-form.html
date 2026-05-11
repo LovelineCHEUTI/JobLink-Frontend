@@ -1,1 +1,82 @@
-<p>review-form works!</p>
+<div class="min-h-screen bg-gray-950">
+
+  <!-- Header -->
+  <div class="relative bg-gradient-to-r from-yellow-900 to-orange-900 px-6 pt-12 pb-16">
+    <button (click)="goBack()"
+      class="absolute top-4 left-4 w-10 h-10 bg-black/30 backdrop-blur rounded-full flex items-center justify-center text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <h1 class="text-white font-bold text-2xl">Laisser un avis</h1>
+    <p class="text-yellow-300 text-sm mt-1">Partagez votre expérience</p>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-6 mt-4 pb-8">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
+
+      <!-- Étoiles -->
+      <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 text-center">
+        <h3 class="text-white font-semibold text-base mb-2">Note globale</h3>
+        <p class="text-gray-400 text-sm mb-6">Quelle note donnez-vous à ce prestataire ?</p>
+
+        <div class="flex justify-center gap-3 mb-4">
+          <button *ngFor="let star of [1,2,3,4,5]" type="button"
+            (click)="setRating(star)"
+            (mouseenter)="hoveredStar = star"
+            (mouseleave)="hoveredStar = 0"
+            class="text-5xl transition-transform hover:scale-110">
+            <span [class]="(hoveredStar >= star || selectedRating >= star) ? 'text-yellow-400' : 'text-gray-600'">
+              ★
+            </span>
+          </button>
+        </div>
+
+        <p class="text-gray-400 text-sm">
+          <span *ngIf="selectedRating === 0">Cliquez sur une étoile</span>
+          <span *ngIf="selectedRating === 1" class="text-red-400">😞 Très mauvais</span>
+          <span *ngIf="selectedRating === 2" class="text-orange-400">😐 Mauvais</span>
+          <span *ngIf="selectedRating === 3" class="text-yellow-400">😊 Correct</span>
+          <span *ngIf="selectedRating === 4" class="text-green-400">😄 Très bien</span>
+          <span *ngIf="selectedRating === 5" class="text-emerald-400">🤩 Excellent !</span>
+        </p>
+      </div>
+
+      <!-- Commentaire -->
+      <div class="bg-gray-800 border border-gray-700 rounded-2xl p-5">
+        <label class="block text-white font-semibold text-sm mb-1">
+          💬 Commentaire
+          <span class="text-gray-500 font-normal ml-1">(optionnel)</span>
+        </label>
+        <p class="text-gray-500 text-xs mb-3">Décrivez votre expérience avec ce prestataire</p>
+        <textarea formControlName="comment" rows="5"
+          placeholder="Ce prestataire était très professionnel, ponctuel et le travail était de qualité..."
+          class="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500 transition-colors resize-none text-sm">
+        </textarea>
+        <p class="text-gray-600 text-xs mt-2 text-right">
+          {{ form.get('comment')?.value?.length ?? 0 }}/500
+        </p>
+      </div>
+
+      <!-- Info -->
+      <div class="bg-yellow-900/30 border border-yellow-500/30 rounded-2xl p-4 flex gap-3">
+        <span class="text-yellow-400 text-xl flex-shrink-0">⭐</span>
+        <p class="text-yellow-300 text-xs leading-relaxed">
+          Votre avis aide les autres clients à choisir les meilleurs prestataires. Soyez honnête et constructif.
+        </p>
+      </div>
+
+      <p *ngIf="error"
+        class="text-red-400 text-sm text-center bg-red-400/10 border border-red-400/30 rounded-xl p-3">
+        ⚠ {{ error }}
+      </p>
+
+      <button type="submit" [disabled]="loading || selectedRating === 0"
+        class="w-full py-4 bg-yellow-500 hover:bg-yellow-600 disabled:opacity-50 text-gray-900 font-bold rounded-2xl transition-all duration-200 text-base shadow-lg shadow-yellow-500/25">
+        {{ loading ? '⏳ Envoi en cours...' : '⭐ Publier mon avis' }}
+      </button>
+
+    </form>
+  </div>
+</div>
