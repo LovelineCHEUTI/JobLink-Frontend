@@ -17,5 +17,16 @@ export const routes: Routes = [
   { path: 'provider', loadChildren: () => import('./features/provider/provider.routes').then(m => m.providerRoutes), canActivate: [authGuard] },
   { path: 'admin',    loadChildren: () => import('./features/admin/admin.routes').then(m => m.adminRoutes), canActivate: [authGuard] },
 
+  {
+    path: 'notifications',
+    loadComponent: () => import('./features/shared-pages/notifications/notifications').then(m => m.Notifications),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./features/shared-pages/shared-profile/shared-profile').then(m => m.SharedProfile),
+    canActivate: [authGuard]
+  },
+
   { path: '**', redirectTo: 'auth' }
 ];
