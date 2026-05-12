@@ -1,1 +1,93 @@
-<p>users works!</p>
+<div class="min-h-screen bg-[#0a0a0f]">
+
+  <!-- Top bar -->
+  <div class="border-b border-white/5 px-6 py-3 bg-[#0d0d14]">
+    <div class="flex items-center gap-3 max-w-6xl mx-auto">
+      <button (click)="goBack()"
+        class="flex items-center gap-2 px-3 py-1.5 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all text-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Dashboard
+      </button>
+      <span class="text-gray-700">/</span>
+      <span class="text-white font-medium text-sm">Utilisateurs</span>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 py-8">
+
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-2xl font-bold text-white">Gestion des utilisateurs</h1>
+        <p class="text-gray-500 text-sm mt-1">{{ users.length }} client(s) inscrits</p>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="space-y-3">
+      <div *ngFor="let i of [1,2,3,4,5]" class="h-16 bg-white/5 rounded-xl animate-pulse"></div>
+    </div>
+
+    <!-- Vide -->
+    <div *ngIf="!loading && users.length === 0"
+      class="bg-white/[0.03] border border-white/8 rounded-2xl p-16 text-center">
+      <p class="text-4xl mb-3">👥</p>
+      <p class="text-white font-semibold">Aucun utilisateur</p>
+      <p class="text-gray-500 text-sm mt-1">Aucun client inscrit pour l'instant</p>
+    </div>
+
+    <!-- Table -->
+    <div *ngIf="!loading && users.length > 0"
+      class="bg-white/[0.03] border border-white/8 rounded-2xl overflow-hidden">
+
+      <!-- En-tête -->
+      <div class="grid grid-cols-5 gap-4 px-5 py-3 border-b border-white/5">
+        <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Utilisateur</p>
+        <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Email</p>
+        <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Ville</p>
+        <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Statut</p>
+        <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider text-right">Actions</p>
+      </div>
+
+      <!-- Lignes -->
+      <div *ngFor="let user of users; let last = last"
+        [class]="'grid grid-cols-5 gap-4 px-5 py-4 items-center hover:bg-white/[0.02] transition-colors ' + (!last ? 'border-b border-white/5' : '')">
+
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+            <span class="text-blue-400 font-bold text-sm">{{ user.name.charAt(0) }}</span>
+          </div>
+          <p class="text-white font-medium text-sm truncate">{{ user.name }}</p>
+        </div>
+
+        <p class="text-gray-400 text-sm truncate">{{ user.email }}</p>
+
+        <p class="text-gray-400 text-sm">{{ user.city ?? '—' }}</p>
+
+        <div>
+          <span [class]="user.is_active
+            ? 'px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full'
+            : 'px-2.5 py-1 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold rounded-full'">
+            {{ user.is_active ? '● Actif' : '● Inactif' }}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2 justify-end">
+          <button (click)="toggle(user.id)"
+            [class]="user.is_active
+              ? 'px-3 py-1.5 bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/20 text-yellow-400 rounded-lg text-xs font-medium transition-colors'
+              : 'px-3 py-1.5 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-400 rounded-lg text-xs font-medium transition-colors'">
+            {{ user.is_active ? 'Désactiver' : 'Activer' }}
+          </button>
+          <button (click)="delete(user.id)"
+            class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 rounded-lg text-xs font-medium transition-colors">
+            Supprimer
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
