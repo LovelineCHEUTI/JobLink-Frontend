@@ -1,0 +1,92 @@
+<section id="top" class="stars-bg relative overflow-hidden pt-32 pb-24 md:pt-40 md:pb-32 px-6">
+
+  <div class="glow-orb w-[500px] h-[500px] bg-indigo-600 top-[-160px] left-[-160px]"></div>
+  <div class="glow-orb w-[420px] h-[420px] bg-purple-600 bottom-[-140px] right-[-140px]"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+    <!-- Copy -->
+    <div appReveal>
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold tracking-wide uppercase mb-6">
+        Plateforme de mise en relation
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-[3.4rem] font-bold text-white leading-[1.1] mb-6">
+        Les bons professionnels,<br class="hidden md:block" /> au bon moment.
+      </h1>
+      <p class="text-gray-400 text-lg max-w-md mb-8 leading-relaxed">
+        JobLink vous connecte facilement aux professionnels qualifiés dont vous avez besoin, où que vous soyez.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button
+          (click)="findProvider()"
+          class="px-7 py-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-2xl transition-all duration-200 text-base">
+          Trouver un professionnel
+        </button>
+        <button
+          (click)="becomeProvider()"
+          class="px-7 py-4 bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-semibold rounded-2xl transition-all duration-200 text-base border border-gray-700">
+          Devenir prestataire
+        </button>
+      </div>
+      <p class="text-gray-600 text-sm mt-10">
+        Plombiers · Électriciens · Menuisiers · Maçons · Peintres
+      </p>
+    </div>
+
+    <!-- Illustration: connection composition -->
+    <div appReveal [revealDelay]="150" class="relative h-[420px] hidden md:block">
+
+      <!-- connecting pulse line -->
+      <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 420" fill="none">
+        <path d="M90 140 C 160 200, 240 220, 310 280" stroke="url(#lineGrad)" stroke-width="2" stroke-dasharray="6 8" opacity="0.5"/>
+        <defs>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#818cf8"/>
+            <stop offset="1" stop-color="#c084fc"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- Client card -->
+      <div class="absolute top-10 left-0 w-56 bg-gray-900/90 backdrop-blur border border-gray-800 rounded-2xl p-5 shadow-2xl hero-float-1">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-11 h-11 rounded-xl bg-indigo-500/20 flex items-center justify-center text-lg">👤</div>
+          <div>
+            <p class="text-white text-sm font-semibold">Client</p>
+            <p class="text-gray-500 text-xs">Recherche un service</p>
+          </div>
+        </div>
+        <div class="h-2 rounded-full bg-gray-800 overflow-hidden">
+          <div class="h-full w-3/4 bg-indigo-500 rounded-full"></div>
+        </div>
+      </div>
+
+      <!-- Provider card -->
+      <div class="absolute bottom-10 right-0 w-60 bg-gray-900/90 backdrop-blur border border-gray-800 rounded-2xl p-5 shadow-2xl hero-float-2">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-purple-500/20 flex items-center justify-center text-lg">🔧</div>
+            <div>
+              <p class="text-white text-sm font-semibold">Prestataire</p>
+              <p class="text-gray-500 text-xs">Électricien · Yaoundé</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.367 2.446a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.538 1.118l-3.367-2.446a1 1 0 00-1.176 0l-3.367 2.446c-.783.57-1.838-.196-1.538-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.063 9.385c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.958z"/>
+          </svg>
+          <span class="text-gray-400 text-xs">4.9 · 128 avis</span>
+        </div>
+      </div>
+
+      <!-- floating badge -->
+      <div class="absolute top-[190px] left-[150px] w-14 h-14 rounded-2xl bg-indigo-600 flex items-center justify-center shadow-xl hero-float-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</section>

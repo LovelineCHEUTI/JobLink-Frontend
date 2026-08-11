@@ -1,3 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+/* Starfield background + glow-orb, shared by splash/login/register and by the
+   landing page's Hero and CTA sections. Angular scopes component CSS by default,
+   so this needs to live globally to be reused across components. Copied as-is
+   from features/auth/splash/splash.css. */
+.stars-bg {
+  background-color: #030712;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(165,180,252,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 60%, rgba(165,180,252,0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 10%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 80%, rgba(165,180,252,0.7) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 35%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 70%, rgba(165,180,252,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 15%, rgba(165,180,252,0.8) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 15% 85%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 50%, rgba(165,180,252,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 75% 90%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 50%, rgba(165,180,252,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 25%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 88% 45%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 20% 75%, rgba(165,180,252,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 65% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 45% 95%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 60%, rgba(165,180,252,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 8% 8%, white 0%, transparent 100%);
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Scroll-reveal utility used by the landing page's [appReveal] directive.
+   Global (not component-scoped) so every landing section can share it. */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-init {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

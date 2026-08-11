@@ -1,0 +1,58 @@
+<nav
+  [class]="scrolled
+    ? 'fixed top-0 left-0 right-0 z-50 bg-gray-950/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300'
+    : 'fixed top-0 left-0 right-0 z-50 bg-transparent border-b border-transparent transition-all duration-300'">
+
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+    <!-- Logo -->
+    <button (click)="scrollTo('top')" class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+      </div>
+      <span class="text-xl font-bold text-white">Job<span class="text-indigo-400">Link</span></span>
+    </button>
+
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-8">
+      <button (click)="scrollTo('top')" class="text-gray-300 hover:text-white text-sm font-medium transition-colors">Accueil</button>
+      <button (click)="scrollTo('how-it-works')" class="text-gray-300 hover:text-white text-sm font-medium transition-colors">Comment ça marche ?</button>
+      <button (click)="scrollTo('services')" class="text-gray-300 hover:text-white text-sm font-medium transition-colors">Services</button>
+      <button (click)="scrollTo('why')" class="text-gray-300 hover:text-white text-sm font-medium transition-colors">À propos</button>
+    </div>
+
+    <!-- Desktop actions -->
+    <div class="hidden md:flex items-center gap-3">
+      <button (click)="goToLogin()" class="px-4 py-2 text-gray-300 hover:text-white text-sm font-semibold transition-colors">
+        Se connecter
+      </button>
+      <button (click)="goToRegister()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-sm font-semibold rounded-xl transition-colors">
+        Créer un compte
+      </button>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button (click)="toggleMobile()" class="md:hidden text-white p-2 -mr-2" [attr.aria-label]="mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'">
+      <svg *ngIf="!mobileOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <svg *ngIf="mobileOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div *ngIf="mobileOpen" class="md:hidden bg-gray-950 border-b border-gray-800 px-6 py-4 flex flex-col gap-1">
+    <button (click)="scrollTo('top')" class="text-left text-gray-300 hover:text-white py-3 text-sm font-medium border-b border-gray-800">Accueil</button>
+    <button (click)="scrollTo('how-it-works')" class="text-left text-gray-300 hover:text-white py-3 text-sm font-medium border-b border-gray-800">Comment ça marche ?</button>
+    <button (click)="scrollTo('services')" class="text-left text-gray-300 hover:text-white py-3 text-sm font-medium border-b border-gray-800">Services</button>
+    <button (click)="scrollTo('why')" class="text-left text-gray-300 hover:text-white py-3 text-sm font-medium border-b border-gray-800">À propos</button>
+    <button (click)="goToLogin()" class="text-left text-gray-300 hover:text-white py-3 text-sm font-semibold">Se connecter</button>
+    <button (click)="goToRegister()" class="mt-2 w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl text-center">
+      Créer un compte
+    </button>
+  </div>
+</nav>

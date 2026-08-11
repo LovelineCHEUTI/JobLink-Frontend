@@ -1,0 +1,65 @@
+<section class="bg-gray-950 py-24 px-6">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+    <!-- Copy -->
+    <div appReveal>
+      <span class="text-purple-400 text-sm font-semibold uppercase tracking-wide">Pour les prestataires</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mt-3 mb-4">
+        Développez votre activité avec JobLink.
+      </h2>
+      <p class="text-gray-400 mb-6 leading-relaxed">
+        Présentez vos services, recevez de nouvelles demandes et développez votre clientèle grâce à JobLink.
+      </p>
+      <ul class="space-y-3 mb-8">
+        <li *ngFor="let benefit of benefits" class="flex items-center gap-3 text-gray-300">
+          <span class="w-5 h-5 rounded-full bg-purple-500/15 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+          </span>
+          {{ benefit }}
+        </li>
+      </ul>
+      <button
+        (click)="becomeProvider()"
+        class="px-7 py-3.5 bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-semibold rounded-2xl transition-all duration-200">
+        Devenir prestataire
+      </button>
+    </div>
+
+    <!-- Visual -->
+    <div appReveal [revealDelay]="100" class="relative h-80 md:h-96">
+      <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-600/20 to-purple-900/5 border border-purple-500/20"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="bg-gray-950/80 border border-gray-800 rounded-2xl p-6 w-full max-w-xs">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-xl">🔧</div>
+            <div>
+              <p class="text-white font-semibold text-sm">Mon profil</p>
+              <p class="text-gray-500 text-xs">Électricien certifié</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center mb-4">
+            <div class="bg-gray-900 rounded-xl py-3">
+              <p class="text-white font-bold text-sm">24</p>
+              <p class="text-gray-500 text-[10px]">Demandes</p>
+            </div>
+            <div class="bg-gray-900 rounded-xl py-3">
+              <p class="text-white font-bold text-sm">4.9</p>
+              <p class="text-gray-500 text-[10px]">Note</p>
+            </div>
+            <div class="bg-gray-900 rounded-xl py-3">
+              <p class="text-white font-bold text-sm">18</p>
+              <p class="text-gray-500 text-[10px]">Avis</p>
+            </div>
+          </div>
+          <div class="h-2 rounded-full bg-gray-800 overflow-hidden">
+            <div class="h-full w-4/5 bg-purple-500 rounded-full"></div>
+          </div>
+          <p class="text-gray-500 text-[11px] mt-2">Visibilité du profil : 80%</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

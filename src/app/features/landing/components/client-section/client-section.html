@@ -1,0 +1,53 @@
+<section class="bg-gray-900 py-24 px-6">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+    <!-- Visual -->
+    <div appReveal class="order-2 md:order-1 relative h-80 md:h-96">
+      <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-600/20 to-indigo-900/5 border border-indigo-500/20"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="grid grid-cols-2 gap-4 p-8 w-full max-w-sm">
+          <div class="bg-gray-950/80 border border-gray-800 rounded-2xl p-4 flex flex-col items-center text-center gap-2">
+            <span class="text-2xl">🔍</span>
+            <span class="text-white text-xs font-semibold">Recherche</span>
+          </div>
+          <div class="bg-gray-950/80 border border-gray-800 rounded-2xl p-4 flex flex-col items-center text-center gap-2 mt-6">
+            <span class="text-2xl">📋</span>
+            <span class="text-white text-xs font-semibold">Demande</span>
+          </div>
+          <div class="bg-gray-950/80 border border-gray-800 rounded-2xl p-4 flex flex-col items-center text-center gap-2 -mt-2">
+            <span class="text-2xl">💳</span>
+            <span class="text-white text-xs font-semibold">Paiement</span>
+          </div>
+          <div class="bg-gray-950/80 border border-gray-800 rounded-2xl p-4 flex flex-col items-center text-center gap-2 mt-4">
+            <span class="text-2xl">⭐</span>
+            <span class="text-white text-xs font-semibold">Évaluation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copy -->
+    <div appReveal [revealDelay]="100" class="order-1 md:order-2">
+      <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wide">Pour les clients</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mt-3 mb-6">
+        Tout ce dont vous avez besoin, au même endroit.
+      </h2>
+      <ul class="space-y-3 mb-8">
+        <li *ngFor="let benefit of benefits" class="flex items-center gap-3 text-gray-300">
+          <span class="w-5 h-5 rounded-full bg-indigo-500/15 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+          </span>
+          {{ benefit }}
+        </li>
+      </ul>
+      <button
+        (click)="findProvider()"
+        class="px-7 py-3.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-2xl transition-all duration-200">
+        Trouver un professionnel
+      </button>
+    </div>
+
+  </div>
+</section>

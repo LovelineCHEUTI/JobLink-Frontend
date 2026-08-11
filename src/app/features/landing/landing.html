@@ -1,0 +1,20 @@
+<div class="bg-gray-950">
+  <app-landing-navbar></app-landing-navbar>
+  <app-landing-hero></app-landing-hero>
+  <app-landing-how-it-works></app-landing-how-it-works>
+  <app-landing-client-section></app-landing-client-section>
+  <app-landing-provider-section></app-landing-provider-section>
+  <app-landing-services-section></app-landing-services-section>
+  <app-landing-why-joblink></app-landing-why-joblink>
+
+  <!--
+    Section Statistiques (nombre de professionnels, services, demandes, utilisateurs) :
+    volontairement omise. Aucun endpoint public ne fournit ces données actuellement
+    (/admin/dashboard est protégé par auth:sanctum + role:admin).
+    Dès qu'un endpoint public existera (ex. GET /api/v1/stats/public), il suffira
+    d'ajouter un <app-landing-stats-section> ici, entre "why-joblink" et "cta".
+  -->
+
+  <app-landing-cta></app-landing-cta>
+  <app-landing-footer></app-landing-footer>
+</div>

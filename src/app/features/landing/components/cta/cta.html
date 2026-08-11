@@ -1,0 +1,26 @@
+<section class="stars-bg relative overflow-hidden py-24 px-6">
+
+  <div class="glow-orb w-[420px] h-[420px] bg-indigo-600 top-[-120px] left-1/4"></div>
+  <div class="glow-orb w-[380px] h-[380px] bg-purple-600 bottom-[-120px] right-1/4"></div>
+
+  <div appReveal class="relative z-10 max-w-2xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
+      Votre prochain service commence ici.
+    </h2>
+    <p class="text-gray-400 text-lg mb-10 max-w-lg mx-auto">
+      Rejoignez JobLink et découvrez une nouvelle façon de trouver ou proposer des services.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button
+        (click)="start()"
+        class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-2xl transition-all duration-200 text-base">
+        Commencer maintenant
+      </button>
+      <button
+        (click)="discoverServices()"
+        class="px-8 py-4 bg-gray-800 hover:bg-gray-700 active:bg-gray-600 text-white font-semibold rounded-2xl transition-all duration-200 text-base border border-gray-700">
+        Découvrir les services
+      </button>
+    </div>
+  </div>
+</section>

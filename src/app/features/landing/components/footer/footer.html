@@ -1,0 +1,54 @@
+<footer class="bg-gray-950 border-t border-gray-800 pt-16 pb-8 px-6">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+      <!-- Brand -->
+      <div class="lg:col-span-1">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <span class="text-lg font-bold text-white">Job<span class="text-indigo-400">Link</span></span>
+        </div>
+        <p class="text-gray-500 text-sm leading-relaxed">Connecter les besoins aux compétences.</p>
+      </div>
+
+      <!-- Plateforme -->
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Plateforme</h4>
+        <ul class="space-y-2.5">
+          <li><button (click)="scrollTo('top')" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Accueil</button></li>
+          <li><button (click)="scrollTo('services')" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Services</button></li>
+          <li><button (click)="scrollTo('how-it-works')" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Comment ça marche ?</button></li>
+        </ul>
+      </div>
+
+      <!-- Compte -->
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Compte</h4>
+        <ul class="space-y-2.5">
+          <li><button (click)="goTo('/auth/login')" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Se connecter</button></li>
+          <li><button (click)="goTo('/auth/register')" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Créer un compte</button></li>
+        </ul>
+      </div>
+
+      <!-- Aide -->
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Aide</h4>
+        <ul class="space-y-2.5">
+          <li><span class="text-gray-600 text-sm cursor-default">FAQ</span></li>
+          <li><span class="text-gray-600 text-sm cursor-default">Contact</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="pt-8 border-t border-gray-800 text-center">
+      <p class="text-gray-600 text-sm">© {{ year }} JobLink. Tous droits réservés.</p>
+    </div>
+
+  </div>
+</footer>
